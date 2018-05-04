@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Journal</title>
+
+    <link href="../static/images/logo.png" th:href="@{/images/logo.png}"
+          rel="shortcut icon"/>
+
+    <!-- Bootstrap -->
+    <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+            rel="stylesheet"/>
+    <!-- Custom style -->
+    <link href="../static/css/style.css" th:href="@{/css/style.css}"
+          rel="stylesheet"/>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+            th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body>
+<nav th:fragment="header"
+     class="navbar navbar-inverse navbar-fixed-top">
+    <script>
+      function showDialog() {
+        var waitingDialog = waitingDialog || (function ($) {
+          'use strict';
+          // Creating modal dialog's DOM
+          var $dialog = $(
+            '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+            '<div class="modal-dialog modal-m">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+            '<div class="modal-body">' +
+            '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+            '</div>' +
+            '</div></div></div>');
+
+          return {
+            /**
+             * Opens our dialog
+             * @param message Custom message
+             * @param options Custom options:
+             *                  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+             *                  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+             */
+            show: function (message, options) {
+              // Assigning defaults
+              if (typeof options === 'undefined') {
+                options = {};
+              }
+              if (typeof message === 'undefined') {
+                message = 'Loading';
+              }
+              var settings = $.extend({
+                dialogSize: 'm',
+                progressType: '',
+                onHide: null // This callback runs after the dialog was hidden
+              }, options);
+
+              // Configuring dialog
+              $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+              $dialog.find('.progress-bar').attr('class', 'progress-bar');
+              if (settings.progressType) {
+                $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+              }
+              $dialog.find('h3').text(message);
+              // Adding callbacks
+              if (typeof settings.onHide === 'function') {
+                $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+                  settings.onHide.call($dialog);
+                });
+              }
+              // Opening dialog
+              $dialog.modal();
+            },
+            /**
+             * Closes dialog
+             */
+            hide: function () {
+              $dialog.modal('hide');
+            }
+          };
+
+        })(jQuery);
+        waitingDialog.show();
+      }
+    </script>
+    <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <h1>Processing...</h1>
+        </div>
+        <div class="modal-body">
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/home}">Journal</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/authors}">Author</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/papers}">Paper</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/candidates}">Candidate</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/candidates/get-list-candidate}">After Predict</a></li>
+            </ul>
+            <ul id="hide-section" class="nav navbar-nav navbar-right" style="visibility:hidden">
+                <li><a id = "position"  onclick="showDialog()">Train Data</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1>Main content</h1>
+
+<footer th:fragment="footer" class="container">
+    &copy; 2017 DAKA
+</footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="layout::head">
+</head>
+<meta charset="UTF-8"/>
+<link href="../static/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+<nav th:replace="layout::header"></nav>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Abstract</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paper : ${papers}">
+            <th scope="row" th:text="${paper.id}"></th>
+            <td th:text="${paper.title}"></td>
+            <td th:text="${paper.date}"></td>
+            <td th:text="${paper.paperAbstract}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script th:inline="javascript">
+  //<![CDATA[
+  $(document).ready(function() {
+    $(".more").toggle(function () {
+      $(this).text("less..").siblings(".complete").show();
+    }, function () {
+      $(this).text("more..").siblings(".complete").hide();
+    });
+  })
+  //]]>
+</script>
+</html>

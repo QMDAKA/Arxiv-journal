@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="layout::head">
+</head>
+<meta charset="UTF-8"/>
+<link href="../static/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+<nav th:replace="layout::header"></nav>
+<body>
+<script>
+  $( document ).ready(function() {
+    var currentPath = window.location.pathname;
+    if(currentPath === '/candidates/after-predict') {
+      document.getElementById("position").innerText = "Test Data";
+      document.getElementById("position").setAttribute("href","/candidates/test")
+      document.getElementById("hide-section").style.visibility = "visible";
+    }
+    else {
+      document.getElementById("hide-section").style.visibility = "hidden";
+    }
+  });
+</script>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Author 1</th>
+            <th>Author 2</th>
+            <th>Label</th>
+            <th>Predict With Normal Measure</th>
+            <th>Predict With Weighted Measure</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="map : ${maps}">
+            <td th:text="${map.author1}"></td>
+            <td th:text="${map.author2}"></td>
+            <td th:text="${map.label}"></td>
+            <td th:text="${map.labelByNormal}"></td>
+            <td th:text="${map.labelByWeight}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${candidates.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+        <ul class="pagination">
+            <li th:class="${candidates.number == 0} ? disabled">
+                <a class="pageLink" th:href="@{/candidates(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+            </li>
+            <li th:class="${candidates.number == 0} ? disabled">
+                <a class="pageLink" th:href="@{/candidates(pageSize=${selectedPageSize}, page=${candidates.number})}">&larr;</a>
+            </li>
+            <li th:class="${candidates.number == (page - 1)} ? 'active pointer-disabled'"
+                th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                <a class="pageLink" th:href="@{/candidates(pageSize=${selectedPageSize}, page=${page})}"
+                   th:text="${page}"></a>
+            </li>
+            <li th:class="${candidates.number + 1 == candidates.totalPages} ? disabled">
+                <a class="pageLink"
+                   th:href="@{/candidates(pageSize=${selectedPageSize}, page=${candidates.number + 2})}">&rarr;</a>
+            </li>
+            <li th:class="${candidates.number + 1 == candidates.totalPages} ? disabled">
+                <a class="pageLink"
+                   th:href="@{/candidates(pageSize=${selectedPageSize}, page=${candidates.totalPages})}">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+</body>
+</html>
