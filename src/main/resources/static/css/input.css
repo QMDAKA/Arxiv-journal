@@ -1,0 +1,30 @@
+.search {
+    position: relative;
+    margin-top: 50px;
+}
+.button-search{
+    margin-left: -15px;
+}
+.suggest-box{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    display: none;
+    padding: 5px;
+    position: absolute;
+    top: 40px;
+    width: 265px;
+    z-index: 100;
+}
+
+.suggest-box .item {
+    padding-bottom: 5px;
+}
+
+.item:hover {
+    cursor: pointer;
+    background-color: #DDDDDD;
+}
+.suggest-box .item:last-child {
+    border-bottom: none;
+}

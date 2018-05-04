@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="layout::head">
+</head>
+<meta charset="UTF-8"/>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var jsonString = /*[[${result}]]*/ 'default';
+  /*]]>*/
+</script>
+<script type="text/javascript" src="../static/js/chart.js"></script>
+<script type="text/javascript" src="../static/lib/canvasjs.min.js"></script>
+<script type="text/javascript" src="../static/lib/jquery.canvasjs.min.js"></script>
+<link href="../static/css/chart.css" th:href="@{/css/chart.css}" rel="stylesheet"/>
+<nav th:replace="layout::header"></nav>
+<body>
+<div class="container">
+<div class="chart-container">
+    <h2>Statistic With Normal Measure</h2><br/>
+    <div id="chartContainer0" style="width: 50%; height: 400px;float:left;"></div>
+    <div id="chartContainer1" style="width:  50%; height: 400px;"></div>
+    <div id="chartContainer2" style="width:  50%; height: 400px;float:left;"></div>
+    <div id="chartContainer3" style="width:  50%; height: 400px;"></div>
+    <div id="chartContainer4" style="width:  50%; height: 400px;float:left;"></div>
+    <div id="chartContainer5" style="width:  50%; height: 400px;"></div>
+</div>
+<div class="chart-container">
+    <h2>Statistic With Weighted Measure</h2><br/>
+    <div id="chartContainer0weigh" style="width: 50%; height: 400px;float:left;"></div>
+    <div id="chartContainer1weigh" style="width:  50%; height: 400px;"></div>
+    <div id="chartContainer2weigh" style="width:  50%; height: 400px;float:left;"></div>
+    <div id="chartContainer3weigh" style="width:  50%; height: 400px;"></div>
+    <div id="chartContainer4weigh" style="width:  50%; height: 400px;float:left;"></div>
+    <div id="chartContainer5weigh" style="width:  50%; height: 400px;"></div>
+</div>
+</div>
+</body>
+</html>

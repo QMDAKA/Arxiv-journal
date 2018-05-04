@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="layout::head">
+</head>
+<meta charset="UTF-8"/>
+<link href="../static/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+<nav th:replace="layout::header"></nav>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Affiliation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.id}"></td>
+            <td th:text="${author.surname}"></td>
+            <td th:text="${author.email}"></td>
+            <td th:text="${author.affiliation}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="form-group col-md-1">
+            <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
+        </div>
+        <div th:if="${authors.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${authors.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/authors(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${authors.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/authors(pageSize=${selectedPageSize}, page=${authors.number})}">&larr;</a>
+                </li>
+                <li th:class="${authors.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    <a class="pageLink" th:href="@{/authors(pageSize=${selectedPageSize}, page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:class="${authors.number + 1 == authors.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{/authors(pageSize=${selectedPageSize}, page=${authors.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${authors.number + 1 == authors.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{/authors(pageSize=${selectedPageSize}, page=${authors.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="layout::head">
+</head>
+<meta charset="UTF-8"/>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link href="../static/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+<link href="../static/css/input.css" th:href="@{/css/input.css}" rel="stylesheet"/>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<nav th:replace="layout::header"></nav>
+<body>
+<div class="container">
+    <div class="search">
+        <form method="get" th:action="@{/candidates/get-list-candidate}">
+            <div class="row">
+                <div class="form-group  col-md-3">
+                    <input id="w-input-search" type="text" class="form-control" th:name="name"
+                           placeholder="Search term...">
+                    <input id="w-input-search-id" type="text" class="form-control" th:name="id" type="hidden">
+                </div>
+                <span class="button-search">
+                    <button class="btn btn-default" type="submit" value="Submit"><span
+                            class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </form>
+        <div class="suggest-box">
+            <div id="result-1" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-2" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-3" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-4" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-5" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Main Author</th>
+            <th>Candidate</th>
+            <th>Predict With Normal Measure</th>
+            <th>Predict With Weighted Measure</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.author1}"></td>
+            <td th:text="${result.author2}"></td>
+            <td th:text="${result.normal_predict}"></td>
+            <td th:text="${result.weighted_predict}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+  function myFunction() {
+    console.log("hello there");
+    alert("The paragraph was clicked.");
+  }
+
+  $(document).ready(function () {
+    $(".item").click(function () {
+      var context = $(this);
+      $("#w-input-search").val(context.children("div")[0].innerText);
+      $("#w-input-search-id").val(context.children("div")[1].innerText);
+      $('.suggest-box').css('display', 'none');
+    });
+    console.log("Hi there");
+    $('#w-input-search').on('keyup', function () {
+      if (this.value.length > 0) {
+        axios.get('http://localhost:8078/authors/get-id?id=' + this.value)
+          .then(function (response) {
+            $('.suggest-box').css('display', 'inline-block');
+            console.log(response);
+            for (var i = 0; i < response.data.length; i++) {
+              //$(`#result-${i}`).val('1')
+              console.log(response.data[i]);
+              document.getElementById(`result-${i + 1}`).getElementsByTagName("div")[0].innerText = response.data[i].surname + " " + response.data[i].givenName;
+              document.getElementById(`result-${i + 1}`).getElementsByTagName("div")[1].innerText = response.data[i].id;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    });
+
+    // $('#w-input-search').blur(function () {
+    //   $('.suggest-box').css('display', 'none');
+    // });
+
+  });
+</script>
+</html>

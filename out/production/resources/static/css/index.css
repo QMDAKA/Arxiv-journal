@@ -1,0 +1,31 @@
+
+ul.listrap{
+    list-style-type: none;
+}
+
+.listrap > li{
+    padding: 12px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.listrap .listrap-toggle{
+    display: inline-block;
+    width: 100%;
+}
+
+.listrap .listrap-toggle .ava{
+    display: inline-block;
+    width: 8%;
+    float: left;
+}
+
+.listrap .listrap-toggle .content{
+    display: inline-block;
+    width: 90%;
+    float: left;
+}
+
+.listrap-toggle .content .title{
+    font-size: 1.1em;
+    font-weight: bold;
+}

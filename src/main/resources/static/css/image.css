@@ -1,0 +1,22 @@
+.circle-img {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+.circle-img-mini {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.circle-img img {
+    height: 100%;
+    transform: translateX(-50%);
+    margin-left: 50%;
+}
+
+.circle-img-mini img {
+    height: 100%;
+    transform: translateX(-50%);
+    margin-left: 50%;
+}
