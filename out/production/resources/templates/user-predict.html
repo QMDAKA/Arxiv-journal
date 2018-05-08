@@ -14,7 +14,7 @@
         <form method="get" th:action="@{/candidates/get-list-candidate}">
             <div class="row">
                 <div class="form-group  col-md-3">
-                    <input id="w-input-search" type="text" class="form-control" th:name="name"
+                    <input id="w-input-search" type="text" class="form-control" th:name="name" autocomplete="off"
                            placeholder="Search term...">
                     <input id="w-input-search-id" type="text" class="form-control" th:name="id" type="hidden">
                 </div>

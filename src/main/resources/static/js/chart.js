@@ -4,8 +4,19 @@ console.log(jsonString);
 window.onload = function () {
   var result = JSON.parse(jsonString);
   var weighted_predict = result[0];
-  console.log(weighted_predict);
   var normal_predict = result[1];
+  document.getElementById("total1").innerText = "Total element: "+normal_predict.total;
+  document.getElementById("label01").innerText = "Number of label 0: "+normal_predict.quantity_label_0;
+  document.getElementById("label11").innerText = "Number of label 1: "+normal_predict.quantity_label_1;
+  document.getElementById("f1score1").innerText = "F1 score: "+normal_predict.f1_score;
+  document.getElementById("acc1").innerText = "Accuracy: "+normal_predict.acc_score;
+
+  document.getElementById("total2").innerText = "Total element: "+weighted_predict.total;
+  document.getElementById("label02").innerText = "Number of label 0: "+weighted_predict.quantity_label_0;
+  document.getElementById("label12").innerText = "Number of label 1: "+weighted_predict.quantity_label_1;
+  document.getElementById("f1score2").innerText = "F1 score: "+weighted_predict.f1_score;
+  document.getElementById("acc2").innerText = "Accuracy: "+weighted_predict.acc_score;
+
   for(var i = 0; i < normal_predict.matrix.length; i++) {
     var matrix = normal_predict.matrix;
     var idChart = "chartContainer" + i;
