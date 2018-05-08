@@ -7,21 +7,60 @@
 <nav th:replace="layout::header"></nav>
 <body>
 <div class="container">
+    <div class="search">
+        <form method="get" th:action="@{/authors}">
+            <div class="row">
+                <div class="form-group  col-md-3">
+                    <input id="w-input-search" type="text" class="form-control" th:name="name"
+                           placeholder="Search term...">
+                    <input id="w-input-search-id" type="text" class="form-control" th:name="id" type="hidden">
+                </div>
+                <span class="button-search">
+                    <button class="btn btn-default" type="submit" value="Submit"><span
+                            class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </form>
+        <div class="suggest-box">
+            <div id="result-1" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-2" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-3" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-4" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+            <div id="result-5" class="item">
+                <div class="name"></div>
+                <div class="id" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Surname</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Affiliation</th>
+            <th>Subject</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
             <td th:text="${author.id}"></td>
-            <td th:text="${author.surname}"></td>
+            <td th:text="${author.surname} + ' '+ ${author.givenName}"></td>
             <td th:text="${author.email}"></td>
             <td th:text="${author.affiliation}"></td>
+            <td th:text="${author.subject}"></td>
         </tr>
         </tbody>
     </table>
@@ -58,4 +97,39 @@
     </div>
 </div>
 </body>
+<script>
+  function myFunction() {
+    console.log("hello there");
+    alert("The paragraph was clicked.");
+  }
+
+  $(document).ready(function () {
+    $(".item").click(function () {
+      var context = $(this);
+      $("#w-input-search").val(context.children("div")[0].innerText);
+      $("#w-input-search-id").val(context.children("div")[1].innerText);
+      $('.suggest-box').css('display', 'none');
+    });
+    console.log("Hi there");
+    $('#w-input-search').on('keyup', function () {
+      if (this.value.length > 0) {
+        axios.get('http://localhost:8078/authors/search?name=' + this.value)
+          .then(function (response) {
+            $('.suggest-box').css('display', 'inline-block');
+            console.log(response);
+            for (var i = 0; i < response.data.length; i++) {
+              //$(`#result-${i}`).val('1')
+              console.log(response.data[i]);
+              document.getElementById(`result-${i + 1}`).getElementsByTagName("div")[0].innerText = response.data[i].surname + " " + response.data[i].givenName;
+              document.getElementById(`result-${i + 1}`).getElementsByTagName("div")[1].innerText = response.data[i].id;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    });
+  });
+</script>
+
 </html>

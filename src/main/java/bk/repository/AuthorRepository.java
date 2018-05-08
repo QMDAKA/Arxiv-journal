@@ -16,8 +16,12 @@ import java.util.List;
 public interface AuthorRepository extends JpaRepository<Author,String>{
     Author findById(String id);
     Page<Author> findAll(Pageable pageable);
+    Page<Author> findById(String id, Pageable pageable);
     @Query(value = "select Distinct(a.id),a.affiliation,a.email,a.given_name,a.subject,a.surname,a.url from co_authorship_simply as c, author as a where (c.author_id1 = a.id or c.author_id2 = a.id) AND (a.id LIKE ?1 OR a.surname LIKE ?1) limit 10",
             nativeQuery = true)
     List<Author> findByIdPrefix(String id);
+    @Query(value = "select Distinct(a.id),a.affiliation,a.email,a.given_name,a.subject,a.surname,a.url from author as a WHERE (a.id LIKE ?1 OR a.surname LIKE ?1) limit 10",
+            nativeQuery = true)
+    List<Author> findByNamePrefix(String name);
 
 }

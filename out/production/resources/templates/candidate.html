@@ -27,6 +27,9 @@
             <th>CN</th>
             <th>JC</th>
             <th>AA</th>
+            <th>WCN</th>
+            <th>WJC</th>
+            <th>WAA</th>
             <th>Label</th>
         </tr>
         </thead>
@@ -37,6 +40,9 @@
             <td th:text="${map.cn}"></td>
             <td th:text="${#numbers.formatDecimal(map.jc,2,2,'POINT')}"></td>
             <td th:text="${#numbers.formatDecimal(map.aa,2,2,'POINT')}"></td>
+            <td th:text="${#numbers.formatDecimal(map.wcn,2,2,'POINT')}"></td>
+            <td th:text="${#numbers.formatDecimal(map.wjc,2,2,'POINT')}"></td>
+            <td th:text="${#numbers.formatDecimal(map.waa,2,2,'POINT')}"></td>
             <td th:text="${map.label}"></td>
         </tr>
         </tbody>

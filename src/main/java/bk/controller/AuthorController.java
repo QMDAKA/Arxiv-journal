@@ -32,11 +32,19 @@ public class AuthorController {
     public String author(
             @RequestParam(value = "page", required = false, defaultValue = "0") Optional<Integer> page,
             @RequestParam(value = "pageSize", required = false, defaultValue = "100") Optional<Integer> pageSize,
+            @RequestParam(value = "id", required = false, defaultValue = " ") String id,
             Model model) {
+
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         Pageable pageable = new PageRequest(evalPage, evalPageSize);
-        Page<Author> authors = authorRepository.findAll(pageable);
+        Page<Author> authors ;
+        if(id.compareTo(" ")==0) {
+           authors = authorRepository.findAll(pageable);
+        }
+        else {
+            authors = authorRepository.findById(id,pageable);
+        }
         Pager pager = new Pager(authors.getTotalPages(), authors.getNumber(), BUTTONS_TO_SHOW);
         model.addAttribute("authors", authors);
         model.addAttribute("selectedPageSize", evalPageSize);
@@ -51,4 +59,11 @@ public class AuthorController {
         List<Author> authors = authorRepository.findByIdPrefix(id + "%");
         return authors;
     }
+    @RequestMapping(value = "/authors/search", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Author> searchName(@RequestParam String name) {
+        List<Author> authors = authorRepository.findByNamePrefix(name + "%");
+        return authors;
+    }
+
 }
