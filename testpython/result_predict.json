@@ -1,0 +1,62 @@
+[
+  {
+    "authorId1": "7006628744",
+    "authorId2": "55944438800",
+    "normal_predict": 1,
+    "weighted_predict": 1
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7403299696",
+    "normal_predict": 1,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7202537087",
+    "normal_predict": 1,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "55764277900",
+    "normal_predict": 1,
+    "weighted_predict": 1
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "35472808100",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "6506483143",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7004534565",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7006049774",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7201817660",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  },
+  {
+    "authorId1": "7006628744",
+    "authorId2": "7202507643",
+    "normal_predict": 0,
+    "weighted_predict": 0
+  }
+]

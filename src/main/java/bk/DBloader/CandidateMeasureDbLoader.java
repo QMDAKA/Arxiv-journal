@@ -35,7 +35,7 @@ public class CandidateMeasureDbLoader implements CommandLineRunner{
             int yearEnd = Var.yearEnd;
             List<Candidate> candidateList = candidateRepository.findByCn();
             List<String> checkedIdList = new ArrayList<>();
-
+            //map reduce for split list
             Map<Integer, List<Candidate>> listHashMap = splitByHashId(candidateList);
 
             for(int i = 0; i < numThread; i++){
